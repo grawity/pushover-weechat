@@ -126,6 +126,9 @@ def notify(data, signal, signal_data)
   sig_prefix, sig_text = signal_data.split('\t', 2)
 
   if signal == "weechat_pv"
+    if sig_prefix == "--"
+      return Weechat::WEECHAT_RC_OK
+    end
     event = "Weechat Private message from " + sig_prefix
   elsif signal == "weechat_highlight"
     event = "Weechat Highlight from " + sig_prefix
