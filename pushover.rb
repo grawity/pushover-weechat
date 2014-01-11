@@ -102,7 +102,9 @@ def weechat_init
 
   @last = Time.now - Weechat.config_get_plugin('interval').to_i
 
-  Weechat.print("", "pushover: Please set your API key with: /set plugins.var.ruby.pushover.userkey")
+  if Weechat.config_get_plugin('userkey').empty?
+    Weechat.print("", "pushover: Please set your API key with: /set plugins.var.ruby.pushover.userkey")
+  end
 
   Weechat.hook_signal("weechat_highlight", "notify", "")
   Weechat.hook_signal("weechat_pv", "notify", "")
