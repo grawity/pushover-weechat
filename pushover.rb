@@ -129,9 +129,9 @@ def notify(data, signal, signal_data)
     if sig_prefix == "--"
       return Weechat::WEECHAT_RC_OK
     end
-    event = "Weechat Private message from " + sig_prefix
+    event = "Message from " + sig_prefix
   elsif signal == "weechat_highlight"
-    event = "Weechat Highlight from " + sig_prefix
+    event = "Highlight by " + sig_prefix
   end
 
   if (Time.now - @last) > Weechat.config_get_plugin('interval').to_i
