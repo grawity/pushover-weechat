@@ -12,10 +12,10 @@
 # Install
 # -------
 #
-#   Load the pushover-weechat.rb plugin into Weechat. Place it in the
+#   Load the pushover.rb plugin into Weechat. Place it in the
 #   ~/.weechat/ruby directory:
 #
-#        /ruby load pushover-weechat.rb
+#        /ruby load pushover.rb
 #
 #   It also requires a Pushover account.
 #
@@ -24,29 +24,29 @@
 #
 #   Set your Pushover user key.
 #
-#       /set plugins.var.ruby.pushover-weechat.userkey 123456789abcdefgh
+#       /set plugins.var.ruby.pushover.userkey 123456789abcdefgh
 #
 # Options
 # -------
 #
-#   plugins.var.ruby.pushover-weechat.userkey
+#   plugins.var.ruby.pushover.userkey
 #
 #       The user key for your Pushover service.
 #       Default: Empty string
 #
-#   plugins.var.ruby.pushover-weechat.interval
+#   plugins.var.ruby.pushover.interval
 #
 #       The interval between notifications. Doesn't notify if the last
 #       notification was within x seconds.
 #       Default: 60 seconds
 #
-#   plugins.var.ruby.pushover-weechat.away
+#   plugins.var.ruby.pushover.away
 #
 #       Check whether the client is to /away for the current buffer and
 #       notifies if they're away. Set to on for this to happen.
 #       Default: off
 #
-#   plugins.var.ruby.pushover-weechat.sound
+#   plugins.var.ruby.pushover.sound
 #
 #       Set your notification sound
 #         options (Current listing located at https://pushover.net/api#sounds)
@@ -77,7 +77,7 @@
 require 'rubygems'
 require 'net/https'
 
-SCRIPT_NAME = 'pushover-weechat'
+SCRIPT_NAME = 'pushover'
 SCRIPT_AUTHOR = 'James Turnbull <james@lovedthanlost.net>'
 SCRIPT_DESC = 'Send highlights and private messages in channels to your Android or IOS device via Pushover'
 SCRIPT_VERSION = '0.1'
@@ -102,7 +102,7 @@ def weechat_init
 
   @last = Time.now - Weechat.config_get_plugin('interval').to_i
 
-  Weechat.print("", "pushover-weechat: Please set your API key with: /set plugins.var.ruby.pushover-weechat.userkey")
+  Weechat.print("", "pushover: Please set your API key with: /set plugins.var.ruby.pushover.userkey")
 
   Weechat.hook_signal("weechat_highlight", "notify", "")
   Weechat.hook_signal("weechat_pv", "notify", "")
@@ -145,7 +145,7 @@ def notify(data, signal, signal_data)
     res.start {|http| http.request(req) }
     @last = Time.now
   else
-    Weechat.print("", "pushover-weechat: Skipping notification, too soon since last notification")
+    Weechat.print("", "pushover: Skipping notification, too soon since last notification")
   end
 
   return Weechat::WEECHAT_RC_OK
