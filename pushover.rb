@@ -135,7 +135,7 @@ def notify(data, signal, signal_data)
     req.set_form_data({
       :token   => Weechat.config_get_plugin('apikey'),
       :user    => Weechat.config_get_plugin('userkey'),
-      :sound    => Weechat.config_get_plugin('sound'),
+      :sound   => Weechat.config_get_plugin('sound'),
       :title   => event,
       :message => (signal_data.split(' '))[1...(signal_data.split(' ')).size].join(' ')
     })
